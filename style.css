@@ -1,0 +1,188 @@
+:root {
+  --bg: #121212;             /* Глубокий темно-серый фон страницы (как в Google) */
+  --card: #1f1f1f;           /* Фон карточек (чуть светлее фона страницы) */
+  --text: #e8eaed;           /* Светло-серый основной текст Google */
+  --muted: #9aa0a6;          /* Приглушенный серый текст Google */
+  --border: #3c4043;         /* Цвет границ разделов и карточек */
+  --primary: #e8eaed;        /* Основной цвет акцентных кнопок */
+  --primary-text: #121212;   /* Текст на основных кнопках */
+  --secondary-btn: #303134;  /* Второстепенные темные кнопки */
+  --question-bg: #28292a;    /* Блок с текстом вопроса */
+  --letter-bg: #3c4043;      /* Кружочки с буквами вариантов (A, B, C...) */
+  --letter-text: #e8eaed;    /* Текст внутри кружочков */
+  --shadow: rgba(0, 0, 0, 0.5); /* Плотная темная тень */
+  
+  /* Спокойные, не выжигающие глаза цвета ответов для темной темы */
+  --green: #137333;          /* Приглушенный зеленый Google */
+  --green-border: #1e8e3e;
+  --red: #c5221f;            /* Приглушенный красный Google */
+  --red-border: #d93025;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ГЛАВНЫЙ КОНТЕЙНЕР: Центрирует тест и делает его ширину аккуратной */
+.container {
+  max-width: 680px;          /* Оптимальная ширина для удобного чтения и кликов */
+  width: 100%;
+  margin: 40px auto;         /* Центрирует блок горизонтально и делает красивый отступ сверху */
+  padding: 0 16px;           /* Отступы, чтобы на смартфонах блок не прилипал к краям экрана */
+}
+
+.card {
+  width: 100%;
+  background: var(--card);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px var(--shadow);
+  padding: 32px;             /* Слегка увеличили внутренний отступ для большего объема */
+}
+
+.title-row { display: flex; gap: 14px; align-items: center; }
+
+.icon-box {
+  width: 52px; height: 52px; border-radius: 18px;
+  background: var(--primary); color: var(--primary-text); display:flex; align-items:center; justify-content:center;
+  font-size: 24px;
+}
+
+.muted { color: var(--muted); }
+.grid { display: grid; gap: 14px; width: 100%; }
+.grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+
+/* Фикс для маленьких карточек (особенно если это <button>) */
+.small-card {
+  background: var(--card); 
+  border: 1px solid var(--border); 
+  border-radius: 18px; 
+  padding: 16px;
+  color: var(--text);          /* Перебиваем черный цвет браузера */
+  font-family: inherit;        /* Перебиваем стандартный шрифт кнопок */
+  text-align: left;            /* Выравниваем текст по левому краю */
+}
+
+/* Стиль для кликабельной карточки ошибок */
+.clickable-card {
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.clickable-card:hover:not(:disabled) {
+  background-color: var(--secondary-btn);
+  border-color: var(--muted);
+}
+/* Если ошибок 0 — карточка аккуратно тускнеет */
+.small-card:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.stat-label { font-size: 14px; color: var(--muted); }
+.stat-value { font-size: 30px; font-weight: 700; margin-top: 10px; color: var(--text); }
+.btn-row { display:flex; gap: 12px; flex-wrap: wrap; width: 100%; }
+
+.btn {
+  border: 1px solid transparent;
+  background: var(--primary);
+  color: var(--primary-text);
+  border-radius: 18px;
+  padding: 14px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.btn.secondary {
+  background: var(--secondary-btn);
+  color: var(--text);
+}
+
+.btn.outline {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.badge {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--primary);
+  color: var(--primary-text);
+  font-size: 14px;
+}
+
+.question-box {
+  background: var(--question-bg);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  width: 100%;
+}
+
+.option-btn {
+  width: 100%; text-align: left; background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+  padding: 16px; font-size: 16px; cursor: pointer; color: var(--text); font-family: inherit;
+}
+
+.option-btn:hover:not(:disabled) { border-color: var(--muted); background: var(--secondary-btn); }
+.option-btn.correct { background: var(--green); border-color: var(--green-border); color: #ffffff; }
+.option-btn.wrong { background: var(--red); border-color: var(--red-border); color: #ffffff; }
+.option-inner { display:flex; gap: 12px; align-items:flex-start; }
+
+.option-letter {
+  width: 28px; height: 28px; border-radius: 999px; background: var(--letter-bg); color: var(--letter-text); display:flex; align-items:center; justify-content:center; font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+
+/* Цвета букв при правильном/неправильном ответе */
+.option-btn.correct .option-letter, .option-btn.wrong .option-letter { 
+  background: #ffffff; 
+  color: #121212; 
+}
+
+.progress-wrap { margin-top: 10px; width: 100%; }
+.progress-bar {
+  width: 100%; height: 12px; background: var(--border); border-radius: 999px; overflow:hidden;
+}
+
+.progress-fill {
+  height: 100%; background: var(--primary); width: 0%; transition: width 0.2s ease;
+}
+
+.top-row { display:flex; justify-content:space-between; align-items:center; gap: 12px; flex-wrap: wrap; width: 100%; }
+.match-card { border: 1px solid var(--border); background: var(--card); border-radius: 18px; padding: 14px; width: 100%; }
+
+.select {
+  width: 100%; border: 1px solid var(--border); border-radius: 14px; padding: 12px; font-size: 15px;
+  background: var(--card); color: var(--text); font-family: inherit;
+}
+
+.match-result { margin-top: 10px; font-size: 14px; }
+.list { display:grid; gap: 10px; width: 100%; }
+.error-item { border: 1px solid var(--border); border-radius: 18px; padding: 14px; background: var(--card); width: 100%; }
+.center { text-align:center; }
+
+/* АДАПТИВНОСТЬ ДЛЯ СМАРТФОНОВ */
+@media (max-width: 760px) {
+  .container {
+    margin: 12px auto;        /* Минимальные отступы сверху на телефонах */
+    padding: 0 8px;
+  }
+  .card {
+    padding: 20px;            /* Чуть меньше паддинги внутри, чтобы помещался текст */
+  }
+  .grid-3, .grid-2 { 
+    grid-template-columns: 1fr; /* Колонки встают друг под друга */
+  }
+  .stat-value { font-size: 26px; }
+}
